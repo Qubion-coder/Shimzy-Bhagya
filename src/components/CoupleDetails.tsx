@@ -20,8 +20,8 @@ export const CoupleDetails: React.FC = () => {
             <span className="text-brand-plum uppercase tracking-[0.5em] text-[11px] font-semibold font-sans drop-shadow-sm">The Protagonists</span>
             <div className="w-12 sm:w-20 h-[1px] bg-gradient-to-l from-transparent to-brand-plum/60" />
           </div>
-          <h2 className="text-5xl sm:text-7xl font-names text-stone-800 tracking-tight drop-shadow-sm">
-            Apsara <span className="text-brand-plum font-light mx-2">&</span> Teshan
+          <h2 className="text-5xl sm:text-7xl font-names text-[#d4af37] tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            Maazil <span className="text-brand-plum font-light mx-2">&</span> Gazaala
           </h2>
         </motion.div>
       </div>
@@ -37,9 +37,8 @@ export const CoupleDetails: React.FC = () => {
         >
           <div className="mb-4 flex flex-col items-center lg:items-end">
             <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Groom</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-stone-800 mb-2 drop-shadow-sm">Teshan</h3>
-            <p className="text-stone-700 font-century text-xs mb-2"></p>
-            <p className="text-stone-500/90 font-serif italic text-base sm:text-lg">Son of Mr. (Late) Hettiarachchi & Mrs. Hettiarachchi</p>
+            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Maazil Khan</h3>
+            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Eldest son of Mr. Munif Khan and Mrs. Sofia Nisha</p>
           </div>
           <div className="hidden lg:flex justify-end mt-8">
             <Heart className="w-6 h-6 text-brand-lavender/60 fill-brand-lavender/20 transform hover:scale-110 transition-transform cursor-pointer" />
@@ -59,9 +58,8 @@ export const CoupleDetails: React.FC = () => {
         >
           <div className="mb-4 flex flex-col items-center lg:items-start">
             <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Bride</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-stone-800 mb-2 drop-shadow-sm">Apsara</h3>
-            <p className="text-stone-700 font-century text-xs mb-2"></p>
-            <p className="text-stone-500/90 font-serif italic text-base sm:text-lg">Daughter of Mr. & Mrs. Ariyarathna</p>
+            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Gazaala Iqbal</h3>
+            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Only daughter of Mr. Sheik Iqbal and Mrs. Sofia Khan of Wailevu, Labasa</p>
           </div>
           <div className="hidden lg:flex justify-start mt-8">
             <Heart className="w-6 h-6 text-brand-lavender/60 fill-brand-lavender/20 transform hover:scale-110 transition-transform cursor-pointer" />

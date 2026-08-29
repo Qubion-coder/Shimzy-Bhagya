@@ -2,11 +2,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* Ivory/Pink/Gold Color Palette */
-  --color-brand-plum: #b89645;
-  --color-brand-lavender: #f0b9c3;
-  --color-brand-rose: #f8dbdf;
-  --color-brand-blush: #fffff4;
+  /* Black/Gold Color Palette */
+  --color-brand-plum: #d4af37;
+  --color-brand-lavender: #b89645;
+  --color-brand-rose: #1a1a1a;
+  --color-brand-blush: #050505;
 
   --font-serif: "Cormorant Garamond", serif;
   --font-display: "Great Vibes", cursive;
@@ -18,7 +18,7 @@
 
 :root {
   background-color: var(--color-brand-blush);
-  color: #292524;
+  color: #f8f8f8;
 }
 
 html, body {

@@ -12,8 +12,8 @@ interface RSVPFormProps {
 export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName = 'the celebration', eventParam = 'both' }) => {
   const [formData, setFormData] = useState({
     fullName: inviteeName,
-    guests: '1',
-    dietaryNotes: '',
+    attending: 'yes',
+    message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const scriptUrl = "https://script.google.com/macros/s/AKfycbyDuWCJjIQ7egU3VZBzAndlosVuJyfZnbGaEKA47SuOcj6iSQQys1ksRSaphGAB37V_/exec";
@@ -33,8 +33,8 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
       const payload = new FormData();
       payload.append('sheet', 'RSVP');
       payload.append('fullName', formData.fullName);
-      payload.append('guests', formData.guests);
-      payload.append('dietaryNotes', formData.dietaryNotes);
+      payload.append('attending', formData.attending);
+      payload.append('message', formData.message);
       payload.append('event', eventParam);
 
       await fetch(scriptUrl, {
@@ -45,7 +45,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
 
       setStatus('success');
       toast.success('Your RSVP has been warmly received!');
-      setFormData({ fullName: inviteeName, guests: '1', dietaryNotes: '' });
+      setFormData({ fullName: inviteeName, attending: 'yes', message: '' });
     } catch (error) {
       console.error('Error sending RSVP: ', error);
       setStatus('error');
@@ -63,38 +63,34 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="glass p-10 sm:p-14 lg:p-16 rounded-[3rem] border border-white/40 shadow-[0_30px_60px_rgba(176,137,104,0.1)] relative overflow-hidden bg-white/60 backdrop-blur-3xl lg:flex items-center gap-16"
+        className="glass p-10 sm:p-14 lg:p-16 rounded-[3rem] border border-brand-plum/40 shadow-[0_30px_60px_rgba(0,0,0,0.5)] relative overflow-hidden bg-black/40 backdrop-blur-3xl lg:flex items-center gap-16"
       >
         {/* Soft top border line */}
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-rose via-brand-plum/80 to-brand-rose" />
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-brand-plum to-transparent" />
 
         {/* Left Side: Elegant Text */}
         <div className="lg:w-1/2 lg:pr-10 mb-12 lg:mb-0 relative text-center lg:text-left">
-          <Sparkles className="absolute -top-6 -left-6 w-12 h-12 text-brand-lavender/30 animate-pulse" />
+          <Sparkles className="absolute -top-6 -left-6 w-12 h-12 text-brand-plum/40 animate-pulse" />
 
           <div className="inline-flex items-center justify-center lg:justify-start gap-4 mb-6">
-            <span className="text-brand-plum uppercase tracking-[0.5em] text-[10px] sm:text-[11px] font-bold drop-shadow-sm">
+            <span className="text-[#d4af37] uppercase tracking-[0.5em] text-xs sm:text-sm font-bold drop-shadow-md">
               Kindly Respond
             </span>
-            <div className="hidden lg:block w-16 h-[1px] bg-gradient-to-r from-brand-plum/60 to-transparent" />
+            <div className="hidden lg:block w-16 h-[1px] bg-gradient-to-r from-[#d4af37]/60 to-transparent" />
           </div>
 
-          <h2 className="text-5xl sm:text-6xl font-display text-stone-800 tracking-tight leading-[1.1] mb-6 drop-shadow-sm">
+          <h2 className="text-5xl sm:text-6xl font-display text-[#d4af37] tracking-tight leading-[1.1] mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Reserve <span className="italic font-light text-brand-plum">Your</span> Seat
           </h2>
 
-          <p className="text-stone-500/90 font-serif text-lg leading-relaxed mb-6">
+          <p className="text-gray-100 font-serif text-xl sm:text-2xl leading-relaxed mb-8 drop-shadow-md">
             {inviteeName
               ? `Dear ${inviteeName}, your presence at ${eventName} means the world to us. Please kindly let us know if you will be able to join our celebration.`
               : `Your presence means the world to us. Please kindly let us know if you will be able to join our celebration.`
             }
           </p>
-          <div className="mt-6 mb-8 text-sm font-sans tracking-[0.2em] uppercase font-semibold text-brand-plum drop-shadow-sm leading-loose">
-            RSVP BY <br />
-            076 429 1756 - Apsara <br /> 
-            076 533 9931 - Teshan
-          </div>
-          <div className="w-12 h-[1px] bg-brand-lavender/50 mx-auto lg:mx-0" />
+
+          <div className="w-12 h-[1px] bg-brand-plum/40 mx-auto lg:mx-0" />
         </div>
 
         {/* Right Side: Flowing Form */}
@@ -129,46 +125,44 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onSubmit={handleSubmit}
-                className="space-y-6 bg-white/40 p-8 sm:p-10 rounded-[2.5rem] border border-white shadow-[0_15px_30px_rgba(0,0,0,0.05)]"
+                className="space-y-6 bg-black/60 backdrop-blur-md p-8 sm:p-10 rounded-[2.5rem] border border-brand-plum/30 shadow-[0_15px_30px_rgba(0,0,0,0.5)]"
               >
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Full Name</label>
+                  <label className="block text-xs uppercase tracking-[0.2em] font-bold text-[#d4af37] mb-3 ml-2 drop-shadow-sm">Name</label>
                   <input
                     required
                     type="text"
                     placeholder="E.g., John & Jane Doe"
-                    className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 font-serif italic text-lg shadow-inner placeholder:text-stone-300"
+                    className="w-full bg-black/60 text-white px-6 py-4 rounded-full border border-[#d4af37]/50 focus:ring-2 focus:ring-[#d4af37]/80 focus:border-[#d4af37]/80 outline-none transition-all duration-300 font-serif italic text-xl shadow-inner placeholder:text-gray-400"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Number of Guests</label>
+                  <label className="block text-xs uppercase tracking-[0.2em] font-bold text-[#d4af37] mb-3 ml-2 drop-shadow-sm">Attendance</label>
                   <div className="relative group">
                     <select
-                      className="w-full bg-white/80 px-6 py-4 rounded-full border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 appearance-none font-serif italic text-lg shadow-inner text-stone-700 cursor-pointer"
-                      value={formData.guests}
-                      onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                      className="w-full bg-black/60 text-white px-6 py-4 rounded-full border border-[#d4af37]/50 focus:ring-2 focus:ring-[#d4af37]/80 focus:border-[#d4af37]/80 outline-none transition-all duration-300 appearance-none font-serif italic text-xl shadow-inner cursor-pointer"
+                      value={formData.attending}
+                      onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
                     >
-                      <option value="1">Just Me (1 Guest)</option>
-                      <option value="2">We are coming! (2 Guests)</option>
-                      <option value="3">3 Guests</option>
-                      <option value="4">4 Guests</option>
+                      <option value="yes" className="bg-stone-900 text-white">Joyfully Accepts</option>
+                      <option value="no" className="bg-stone-900 text-white">Regretfully Declines</option>
                     </select>
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-brand-plum transition-transform duration-300 group-hover:scale-110">
-                      <Heart className="w-5 h-5 fill-brand-lavender/30 drop-shadow-sm" />
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[#d4af37] transition-transform duration-300 group-hover:scale-110">
+                      <Heart className="w-6 h-6 fill-[#d4af37]/40 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-stone-500 mb-3 ml-2">Dietary Notes (Optional)</label>
+                  <label className="block text-xs uppercase tracking-[0.2em] font-bold text-[#d4af37] mb-3 ml-2 drop-shadow-sm">Message (Optional)</label>
                   <textarea
-                    placeholder="We'd love to know if you have any allergies..."
-                    className="w-full bg-white/80 px-6 py-4 rounded-[2rem] border border-stone-200/60 focus:ring-2 focus:ring-brand-lavender/30 focus:border-brand-plum/40 outline-none transition-all duration-300 h-28 resize-none font-serif italic text-lg shadow-inner placeholder:text-stone-300"
-                    value={formData.dietaryNotes}
-                    onChange={(e) => setFormData({ ...formData, dietaryNotes: e.target.value })}
+                    placeholder="Leave a message for the couple..."
+                    className="w-full bg-black/60 text-white px-6 py-4 rounded-[2rem] border border-[#d4af37]/50 focus:ring-2 focus:ring-[#d4af37]/80 focus:border-[#d4af37]/80 outline-none transition-all duration-300 h-32 resize-none font-serif italic text-xl shadow-inner placeholder:text-gray-400"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
                 </div>
 
@@ -176,7 +170,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                   <button
                     disabled={status === 'loading'}
                     type="submit"
-                    className="w-full bg-stone-800 text-brand-rose py-5 rounded-full font-sans tracking-[0.3em] font-bold text-[11px] uppercase hover:bg-stone-900 transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.25)] active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-70"
+                    className="w-full bg-[#d4af37] text-stone-900 py-5 rounded-full font-sans tracking-[0.3em] font-bold text-[11px] uppercase hover:bg-[#b89645] transition-all duration-300 shadow-[0_10px_20px_rgba(212,175,55,0.15)] hover:shadow-[0_15px_30px_rgba(212,175,55,0.25)] active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-70"
                   >
                     {status === 'loading' ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
