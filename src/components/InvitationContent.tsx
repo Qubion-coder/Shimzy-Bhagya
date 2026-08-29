@@ -110,7 +110,7 @@ export function InvitationContent({
       </DeferredMount>
 
       <DeferredMount active={active} delay={420} minHeight="30vh">
-        <div className="py-24 sm:py-32 bg-brand-blush relative overflow-hidden">
+        <div className="py-24 sm:py-32 bg-black relative overflow-hidden">
           <RSVPForm inviteeName={fullInviteeName} eventName={eventLabel} eventParam={eventParam} />
         </div>
       </DeferredMount>
