@@ -24,7 +24,7 @@ export default function App() {
 
   let eventLabel = 'Our Wedding Celebration';
 
-  const weddingDate = new Date('2026-08-14T10:15:00');
+  const weddingDate = new Date('2027-01-22T19:00:00');
 
   useEffect(() => {
     if (isAdminRoute()) return;
@@ -42,7 +42,7 @@ export default function App() {
 
   const ensureAudio = useCallback(() => {
     if (!audioRef.current) {
-      audioRef.current = new Audio('/Nazm Nazm - Lyrical  Bareilly Ki Barfi  Rajkummar Rao, Ayushmann Khurrana, Kriti Sanon  Arko (mp3cut.net).mp3');
+      audioRef.current = new Audio('/Kal Ho Naa Ho - Title Track  Flute cover  Varun Kumar  The Wind Stories  HD.mp3');
       audioRef.current.loop = true;
       audioRef.current.volume = 0.3;
       audioRef.current.preload = 'none';

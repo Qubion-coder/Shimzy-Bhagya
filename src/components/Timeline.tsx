@@ -6,7 +6,7 @@ const events = [
   { time: '7:00 PM', title: 'Guest Arrival', icon: Users, desc: 'Welcome and seating.' },
   { time: '7:30 PM', title: 'Formal Programme', icon: Presentation, desc: 'The reception begins.' },
   { time: '8:30 PM', title: 'Dinner', icon: Utensils, desc: 'A grand feast for our guests.' },
-  { time: '9:30 PM onwards', title: 'Celebration Continues', icon: PartyPopper, desc: 'Enjoy the rest of the evening.' },
+  { time: '9:30 PM – 12:00 AM', title: 'Celebration Continues', icon: PartyPopper, desc: 'Enjoy the rest of the evening.' },
 ];
 
 interface TimelineProps {

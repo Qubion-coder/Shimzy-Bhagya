@@ -31,7 +31,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
             </div>
 
             <h2 className="text-5xl sm:text-6xl lg:text-7xl font-display text-[#d4af37] mb-8 leading-[1.1] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                Walimah Reception
+                Wedding Celebration
             </h2>
 
             <p className="text-gray-300 font-serif text-lg sm:text-xl leading-relaxed mb-12 max-w-lg">
@@ -48,7 +48,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
                 </div>
                 <div>
                   <h4 className="font-serif text-xl sm:text-2xl text-gray-200 group-hover:text-[#d4af37] transition-colors duration-500">
-                    Sunday, 10 January 2027
+                    Friday, 22 January 2027
                   </h4>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
                 </div>
                 <div>
                   <h4 className="font-serif text-xl sm:text-2xl text-gray-200 group-hover:text-[#d4af37] transition-colors duration-500">
-                    7:00 PM onwards
+                    7:00 PM – 12:00 AM
                   </h4>
                 </div>
               </div>
@@ -72,7 +72,31 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
                 </div>
                 <div>
                   <h4 className="font-serif text-xl sm:text-2xl text-gray-200 group-hover:text-[#d4af37] transition-colors duration-500">
-                    will inform u soon
+                    Riversage Hall
+                  </h4>
+                  <p className="font-serif text-base sm:text-lg text-gray-400 mt-1">
+                    Oakray Regency Hotel, Kandy
+                  </p>
+                  <a
+                    href="https://maps.app.goo.gl/GnfsBSbtfm4hkKY37?g_st=aw"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 mt-4 px-5 py-2 rounded-full border border-brand-plum/50 text-[#d4af37] text-xs uppercase tracking-[0.3em] font-sans font-semibold hover:bg-brand-plum/10 transition-colors duration-300"
+                  >
+                    <MapPin className="w-4 h-4" />
+                    View on Map
+                  </a>
+                </div>
+              </div>
+
+              {/* Dress Code */}
+              <div className="relative group flex items-center min-h-[48px]">
+                <div className="absolute top-1/2 -translate-y-1/2 -left-[64px] sm:-left-[74px] w-12 h-12 bg-black/40 backdrop-blur-md rounded-full border border-brand-plum/40 shadow-lg flex items-center justify-center group-hover:border-brand-plum transition-all duration-500">
+                  <Palette className="w-5 h-5 text-brand-plum group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <div>
+                  <h4 className="font-serif text-xl sm:text-2xl text-gray-200 group-hover:text-[#d4af37] transition-colors duration-500">
+                    Theme: Black &amp; White
                   </h4>
                 </div>
               </div>

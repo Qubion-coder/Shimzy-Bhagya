@@ -21,7 +21,7 @@ export const CoupleDetails: React.FC = () => {
             <div className="w-12 sm:w-20 h-[1px] bg-gradient-to-l from-transparent to-brand-plum/60" />
           </div>
           <h2 className="text-5xl sm:text-7xl font-names text-[#d4af37] tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Maazil <span className="text-brand-plum font-light mx-2">&</span> Gazaala
+            Shimzy <span className="text-brand-plum font-light mx-2">&</span> Bhagya
           </h2>
         </motion.div>
       </div>
@@ -37,8 +37,8 @@ export const CoupleDetails: React.FC = () => {
         >
           <div className="mb-4 flex flex-col items-center lg:items-end">
             <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Groom</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Maazil Khan</h3>
-            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Eldest son of Mr. Munif Khan and Mrs. Sofia Nisha</p>
+            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Shimzy</h3>
+            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Son of Mr. Nizam Alith and Mrs. Rikaza Alith</p>
           </div>
           <div className="hidden lg:flex justify-end mt-8">
             <Heart className="w-6 h-6 text-brand-lavender/60 fill-brand-lavender/20 transform hover:scale-110 transition-transform cursor-pointer" />
@@ -46,7 +46,26 @@ export const CoupleDetails: React.FC = () => {
         </motion.div>
 
         {/* Center Couple Image (Arch Design) */}
-
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative shrink-0 order-1 lg:order-2"
+        >
+          <div className="absolute -inset-3 sm:-inset-4 border border-brand-plum/40 rounded-t-full pointer-events-none" />
+          <div className="relative w-64 h-[22rem] sm:w-80 sm:h-[28rem] rounded-t-full overflow-hidden border-2 border-[#d4af37]/60 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            <img
+              src="/Warmly%20Lit%20Elegant%20Couple%20Portrait.png"
+              alt="Shimzy and Bhagya"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center 25%' }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          </div>
+        </motion.div>
 
         {/* Bride Details (Right) */}
         <motion.div
@@ -58,8 +77,8 @@ export const CoupleDetails: React.FC = () => {
         >
           <div className="mb-4 flex flex-col items-center lg:items-start">
             <span className="text-brand-plum uppercase tracking-[0.4em] text-[10px] font-bold mb-3 block">The Bride</span>
-            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Gazaala Iqbal</h3>
-            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Only daughter of Mr. Sheik Iqbal and Mrs. Sofia Khan of Wailevu, Labasa</p>
+            <h3 className="text-4xl sm:text-5xl font-names text-[#d4af37] mb-2 drop-shadow-sm">Bhagya</h3>
+            <p className="text-gray-300 font-serif italic text-base sm:text-lg">Daughter of Mr. Ruwan Bandara and Mrs. Indrani Kappetipola</p>
           </div>
           <div className="hidden lg:flex justify-start mt-8">
             <Heart className="w-6 h-6 text-brand-lavender/60 fill-brand-lavender/20 transform hover:scale-110 transition-transform cursor-pointer" />

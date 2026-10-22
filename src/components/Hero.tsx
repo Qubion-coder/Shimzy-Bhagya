@@ -82,33 +82,35 @@ export const Hero: React.FC<HeroProps> = ({ event = 'both', inviteeName }) => {
           </div>
 
           <div className="mb-4 sm:mb-6 px-4">
+            <p
+              className="text-3xl sm:text-4xl text-[#d4af37] leading-relaxed mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+              dir="rtl"
+              style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif", fontWeight: 400 }}
+            >
+              بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </p>
             <span className="text-brand-plum italic text-lg sm:text-2xl font-serif block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              With the Grace and Blessings <br className="block sm:hidden" /> of Allah Subhanahu Wa Ta'ala,
+              In the Name of Allah, <br className="block sm:hidden" /> Most Gracious, Most Merciful
             </span>
           </div>
           
           <div className="mb-6 sm:mb-10 px-4 max-w-3xl">
             <p className="text-gray-200 font-serif text-[1rem] sm:text-xl leading-relaxed drop-shadow-md">
-              Mr. Munif Khan and Mrs. Sofia Nisha<br/>
-              request the honour of your presence at the Walimah Reception of their eldest son,
+              Together with their families,<br/>
+              you are cordially invited to celebrate the wedding of
             </p>
           </div>
 
           <div className="relative mb-6 sm:mb-8 w-full flex justify-center py-4 sm:py-8 px-2 overflow-visible z-10">
             <h1 className="relative text-5xl sm:text-[4.5rem] lg:text-[6rem] font-names text-[#d4af37] font-normal leading-tight sm:leading-[1.1] drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] tracking-normal sm:tracking-tight overflow-visible py-2 text-center">
-              MAAZIL KHAN <br />
+              SHIMZY <br />
               <span className="text-[#b89645] font-normal mx-2 sm:mx-4 text-4xl sm:text-[3.5rem] lg:text-[5rem] inline-block -translate-y-1 sm:-translate-y-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">&</span>
               <br />
-              GAZAALA IQBAL
+              BHAGYA
             </h1>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 mb-12 sm:mb-16 relative z-10 px-4 max-w-2xl">
-            <p className="text-[1rem] sm:text-xl font-serif text-gray-200 text-center leading-relaxed drop-shadow-md">
-              only daughter of Mr. Sheik Iqbal and Mrs. Sofia Khan<br/>
-              of Wailevu, Labasa.
-            </p>
-          </div>
+          <div className="mb-12 sm:mb-16" />
 
 
         </motion.div>
@@ -118,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({ event = 'both', inviteeName }) => {
         <div className="w-[1px] h-28 bg-gradient-to-b from-transparent via-brand-plum to-transparent" />
         <div className="bg-black/40 backdrop-blur-md px-2.5 py-6 rounded-full border border-brand-plum/40 shadow-xl">
           <p className="writing-mode-vertical text-[11px] uppercase tracking-[0.7em] text-brand-plum font-bold font-sans">
-            Walimah Reception
+            Wedding Celebration
           </p>
         </div>
         <div className="w-[1px] h-28 bg-gradient-to-t from-transparent via-brand-plum to-transparent" />
@@ -128,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({ event = 'both', inviteeName }) => {
         <div className="w-[1px] h-28 bg-gradient-to-b from-transparent via-brand-plum to-transparent" />
         <div className="bg-stone-900/90 backdrop-blur-md px-2.5 py-6 rounded-full border border-brand-plum/40 shadow-xl">
           <p className="writing-mode-vertical text-[11px] uppercase tracking-[0.7em] text-brand-rose font-bold font-sans rotate-180">
-            Save the Date • August 2026
+            Save the Date • January 2027
           </p>
         </div>
         <div className="w-[1px] h-28 bg-gradient-to-t from-transparent via-brand-plum to-transparent" />
