@@ -173,6 +173,7 @@ export function IntroVideo({ onComplete, onMusicStart, readyToTransition }: Intr
         src="/intro.mp4"
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
         onEnded={handleVideoEnded}
+        muted
         playsInline
       />
 
