@@ -79,6 +79,19 @@ export function InvitationContent({
 
       <DeferredMount active={active} delay={180} minHeight="40vh">
         <div className="py-24 sm:py-32 bg-brand-blush relative overflow-hidden">
+          {/* Venue backdrop */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <img
+              src="/WhatsApp%20Image%202026-10-22%20at%2020.41.43.jpeg"
+              alt="Oakray Regency Hotel"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/70 lg:bg-transparent lg:bg-gradient-to-r lg:from-black/95 lg:via-black/75 lg:to-black/30" />
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brand-blush to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-brand-blush to-transparent" />
+          </div>
           <CeremonyDetails event={eventParam} />
         </div>
       </DeferredMount>
