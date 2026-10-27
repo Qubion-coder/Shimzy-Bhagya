@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle, Loader2, Heart, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
+// Web app URL from Deploy > New deployment in the RSVP sheet's Apps Script (see google-apps-script/SETUP.md)
+const RSVP_SCRIPT_URL = '';
+
 interface RSVPFormProps {
   inviteeName?: string;
   eventName?: string;
@@ -13,10 +16,10 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
   const [formData, setFormData] = useState({
     fullName: inviteeName,
     attending: 'yes',
+    guests: '1',
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbyDuWCJjIQ7egU3VZBzAndlosVuJyfZnbGaEKA47SuOcj6iSQQys1ksRSaphGAB37V_/exec";
 
   useEffect(() => {
     if (inviteeName) {
@@ -26,18 +29,25 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!RSVP_SCRIPT_URL) {
+      toast.error('RSVP is not connected yet. Please contact the couple directly.');
+      return;
+    }
     setStatus('loading');
 
     try {
+      // URL-encoded body is a "simple" request, so Apps Script receives it without a CORS preflight
+      const payload = new URLSearchParams({
+        fullName: formData.fullName.trim(),
+        attending: formData.attending,
+        guests: formData.attending === 'yes' ? formData.guests : '0',
+        message: formData.message.trim(),
+        invitedAs: inviteeName,
+        page: window.location.href,
+        event: eventParam,
+      });
 
-      const payload = new FormData();
-      payload.append('sheet', 'RSVP');
-      payload.append('fullName', formData.fullName);
-      payload.append('attending', formData.attending);
-      payload.append('message', formData.message);
-      payload.append('event', eventParam);
-
-      await fetch(scriptUrl, {
+      await fetch(RSVP_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: payload,
@@ -45,7 +55,7 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
 
       setStatus('success');
       toast.success('Your RSVP has been warmly received!');
-      setFormData({ fullName: inviteeName, attending: 'yes', message: '' });
+      setFormData({ fullName: inviteeName, attending: 'yes', guests: '1', message: '' });
     } catch (error) {
       console.error('Error sending RSVP: ', error);
       setStatus('error');
@@ -154,6 +164,23 @@ export const RSVPForm: React.FC<RSVPFormProps> = ({ inviteeName = '', eventName 
                     </div>
                   </div>
                 </div>
+
+                {formData.attending === 'yes' && (
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.2em] font-bold text-[#d4af37] mb-3 ml-2 drop-shadow-sm">Number of Guests</label>
+                    <select
+                      className="w-full bg-black/60 text-[#d4af37] px-6 py-4 rounded-full border border-[#d4af37]/50 focus:ring-2 focus:ring-[#d4af37]/80 focus:border-[#d4af37]/80 outline-none transition-all duration-300 font-serif italic text-xl shadow-inner cursor-pointer"
+                      value={formData.guests}
+                      onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                    >
+                      {Array.from({ length: 10 }, (_, i) => String(i + 1)).map((n) => (
+                        <option key={n} value={n} className="bg-black text-[#d4af37]">
+                          {n === '1' ? '1 Guest' : `${n} Guests`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-xs uppercase tracking-[0.2em] font-bold text-[#d4af37] mb-3 ml-2 drop-shadow-sm">Message (Optional)</label>

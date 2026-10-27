@@ -1,111 +1,73 @@
-const SPREADSHEET_ID = '1IYsTHUnfOIHGcwQvoTcjOc5X2wKZJDIrqxqxXtpVpZY';
+// Shimzy & Bhagya — RSVP receiver
+// Paste this whole file into Extensions > Apps Script of the RSVP spreadsheet,
+// then Deploy > New deployment > Web app (Execute as: Me, Who has access: Anyone).
+
+const SPREADSHEET_ID = '1kevBd5Wg999nSC1B7Swyo35zeplCxKp18Joaidn3Zp0';
+const SHEET_NAME = 'RSVP';
+const HEADERS = ['Timestamp', 'Name', 'Attending', 'Guests', 'Message', 'Invited As', 'Invitation Link'];
 
 function doPost(e) {
+  const lock = LockService.getScriptLock();
   try {
-    const payload = parsePayload_(e);
-    const sheetKey = String(payload.sheet || '').toUpperCase();
+    lock.waitLock(20000); // keep simultaneous replies from overwriting each other
 
-    if (sheetKey !== 'RSVP' && sheetKey !== 'WISH') {
-      return jsonResponse_({ ok: false, error: 'Invalid sheet. Use RSVP or WISH.' });
+    const data = (e && e.parameter) || {};
+    const name = clean_(data.fullName, 120);
+    if (!name) {
+      return json_({ ok: false, error: 'Name is required.' });
     }
 
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = getOrCreateSheet_(ss, sheetKey);
+    const attending = String(data.attending).toLowerCase() === 'no' ? 'No' : 'Yes';
+    const guests = attending === 'Yes' ? Math.min(Math.max(parseInt(data.guests, 10) || 1, 1), 20) : 0;
 
-    if (sheetKey === 'RSVP') {
-      ensureHeaders_(sheet, ['Timestamp', 'Full Name', 'Guests', 'Event', 'Dietary Notes']);
-      sheet.appendRow([
-        new Date(),
-        payload.fullName || '',
-        payload.guests || '',
-        payload.event || '',
-        payload.dietaryNotes || '',
-      ]);
-    } else {
-      ensureHeaders_(sheet, ['Timestamp', 'Name', 'Event', 'Message']);
-      sheet.appendRow([
-        new Date(),
-        payload.name || '',
-        payload.event || '',
-        payload.message || '',
-      ]);
-    }
+    const sheet = getSheet_();
+    sheet.appendRow([
+      new Date(),
+      name,
+      attending,
+      guests,
+      clean_(data.message, 1000),
+      clean_(data.invitedAs, 120),
+      clean_(data.page, 300),
+    ]);
 
-    return jsonResponse_({ ok: true });
-  } catch (error) {
-    return jsonResponse_({
-      ok: false,
-      error: String(error && error.message ? error.message : error),
-    });
+    return json_({ ok: true });
+  } catch (err) {
+    return json_({ ok: false, error: String((err && err.message) || err) });
+  } finally {
+    lock.releaseLock();
   }
 }
 
 function doGet() {
-  return jsonResponse_({
-    ok: true,
-    message: 'Wedding form endpoint is running.',
-  });
+  return json_({ ok: true, message: 'Shimzy & Bhagya RSVP endpoint is running.' });
 }
 
-function parsePayload_(e) {
-  const params = e && e.parameter ? e.parameter : {};
+function getSheet_() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(SHEET_NAME);
+  if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
 
-  if (Object.keys(params).length > 0) {
-    return params;
-  }
-
-  const contents = e && e.postData && e.postData.contents ? e.postData.contents : '';
-  if (!contents) {
-    return {};
-  }
-
-  if (contents.indexOf('=') !== -1 && contents.indexOf('{') !== 0) {
-    return parseQueryString_(contents);
-  }
-
-  try {
-    return JSON.parse(contents);
-  } catch (_error) {
-    return {};
-  }
-}
-
-function parseQueryString_(query) {
-  const out = {};
-  const pairs = String(query).split('&');
-
-  for (let i = 0; i < pairs.length; i++) {
-    const part = pairs[i];
-    if (!part) continue;
-
-    const idx = part.indexOf('=');
-    const rawKey = idx >= 0 ? part.slice(0, idx) : part;
-    const rawValue = idx >= 0 ? part.slice(idx + 1) : '';
-    const key = decodeURIComponent(rawKey.replace(/\+/g, ' '));
-    const value = decodeURIComponent(rawValue.replace(/\+/g, ' '));
-
-    out[key] = value;
-  }
-
-  return out;
-}
-
-function getOrCreateSheet_(ss, name) {
-  let sheet = ss.getSheetByName(name);
-  if (!sheet) {
-    sheet = ss.insertSheet(name);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    sheet.getRange(1, 1, 1, HEADERS.length)
+      .setFontWeight('bold')
+      .setBackground('#000000')
+      .setFontColor('#d4af37');
+    sheet.setFrozenRows(1);
+    sheet.getRange('A:A').setNumberFormat('dd/MM/yyyy hh:mm a');
   }
   return sheet;
 }
 
-function ensureHeaders_(sheet, headers) {
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(headers);
-  }
+// Trim, cap length, and stop text being read as a spreadsheet formula
+function clean_(value, maxLength) {
+  let text = String(value == null ? '' : value).trim().slice(0, maxLength);
+  if (/^[=+\-@]/.test(text)) text = "'" + text;
+  return text;
 }
 
-function jsonResponse_(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
+function json_(data) {
+  return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
