@@ -35,7 +35,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
             </h2>
 
             <p className="text-gray-300 font-serif text-lg sm:text-xl leading-relaxed mb-12 max-w-lg">
-                Insha'Allah, we look forward to sharing this joyous occasion with you.
+                Insha'Allah, we look forward to share this joyous occasion with you.
             </p>
 
             {/* Premium Timeline */}
@@ -96,7 +96,7 @@ export const CeremonyDetails: React.FC<CeremonyDetailsProps> = ({ event = 'both'
                 </div>
                 <div>
                   <h4 className="font-serif text-xl sm:text-2xl text-gray-200 group-hover:text-[#d4af37] transition-colors duration-500">
-                    Theme: Black &amp; White
+                    Color Theme: Black
                   </h4>
                 </div>
               </div>
