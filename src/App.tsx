@@ -6,6 +6,7 @@ import { IntroVideo } from './components/IntroVideo';
 import { InvitationContent } from './components/InvitationContent';
 import { Admin } from './components/Admin';
 import { INVITATION_IMAGE_URLS, preloadImages } from './utils/preloadImages';
+import { readGuestFromLocation } from './utils/guest';
 
 const isAdminRoute = () => window.location.pathname === '/admin';
 
@@ -16,11 +17,9 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const params = new URLSearchParams(window.location.search);
-  const titleParam = params.get('title') || '';
-  const nameParam = params.get('name') || '';
   const eventParam = params.get('event') || 'both';
 
-  const fullInviteeName = `${titleParam} ${nameParam}`.trim();
+  const fullInviteeName = readGuestFromLocation();
 
   let eventLabel = 'Our Wedding Celebration';
 
