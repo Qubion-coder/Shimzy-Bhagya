@@ -4,7 +4,7 @@ import { CheckCircle, Loader2, Heart, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 // Web app URL from Deploy > New deployment in the RSVP sheet's Apps Script (see google-apps-script/SETUP.md)
-const RSVP_SCRIPT_URL = '';
+const RSVP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7gyF8LgerEOwsbIonleJd8gxMhaHirgU8XpCVFzI9HOfurmueSJxOgOYtizx5zYY-/exec';
 
 interface RSVPFormProps {
   inviteeName?: string;

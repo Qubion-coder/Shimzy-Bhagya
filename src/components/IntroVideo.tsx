@@ -29,110 +29,6 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 1, ease: [0.22, 1, 0.36, 1] as const, delay },
 });
 
-// Irregular, melted-wax outline for the seal (deterministic so it never reshuffles)
-const WAX_PATH = (() => {
-  const n = 28;
-  const pts = Array.from({ length: n }, (_, i) => {
-    const a = (i / n) * Math.PI * 2;
-    const r = 46 + Math.sin(i * 2.7) * 1.8 + Math.cos(i * 1.3) * 1.4 + (i % 7 === 0 ? 2.2 : 0);
-    return [50 + Math.cos(a) * r, 50 + Math.sin(a) * r];
-  });
-  const mid = (p: number[], q: number[]) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
-  let d = `M ${mid(pts[n - 1], pts[0]).join(' ')}`;
-  pts.forEach((p, i) => {
-    const m = mid(p, pts[(i + 1) % n]);
-    d += ` Q ${p[0].toFixed(2)} ${p[1].toFixed(2)} ${m[0].toFixed(2)} ${m[1].toFixed(2)}`;
-  });
-  return d + ' Z';
-})();
-
-// Laurel leaves curving up both sides of the monogram
-const LAUREL = [...Array(7)].flatMap((_, i) => {
-  const t = 112 + i * 19;
-  return [t, 180 - t].map((deg) => {
-    const a = (deg * Math.PI) / 180;
-    const x = 50 + Math.cos(a) * 26;
-    const y = 50 + Math.sin(a) * 26;
-    const tilt = deg + (deg > 90 ? 50 : -50) + 90;
-    return { x, y, tilt, key: `${deg}` };
-  });
-});
-
-function WaxSeal() {
-  return (
-    <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full overflow-visible">
-      <defs>
-        <radialGradient id="wax" cx="35%" cy="30%" r="75%">
-          <stop offset="0%" stopColor="#4a4a4a" />
-          <stop offset="45%" stopColor="#1c1c1c" />
-          <stop offset="100%" stopColor="#050505" />
-        </radialGradient>
-        <radialGradient id="waxInner" cx="60%" cy="65%" r="70%">
-          <stop offset="0%" stopColor="#2a2a2a" />
-          <stop offset="100%" stopColor="#0b0b0b" />
-        </radialGradient>
-        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#f7e7a1" />
-          <stop offset="35%" stopColor="#d4af37" />
-          <stop offset="65%" stopColor="#8a6d1f" />
-          <stop offset="100%" stopColor="#f3dc8a" />
-        </linearGradient>
-        <filter id="sealShadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000" floodOpacity="0.8" />
-          <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#d4af37" floodOpacity="0.25" />
-        </filter>
-      </defs>
-
-      {/* Wax body */}
-      <path d={WAX_PATH} fill="url(#wax)" filter="url(#sealShadow)" />
-      <path d={WAX_PATH} fill="none" stroke="#ffffff" strokeOpacity="0.08" strokeWidth="0.8" transform="translate(-0.6 -0.6)" />
-
-      {/* Pressed stamp well */}
-      <circle cx="50" cy="50" r="36" fill="url(#waxInner)" />
-      <circle cx="50" cy="50" r="36" fill="none" stroke="#000" strokeOpacity="0.7" strokeWidth="1.6" transform="translate(0.7 0.9)" />
-      <circle cx="50" cy="50" r="36.5" fill="none" stroke="#fff" strokeOpacity="0.12" strokeWidth="0.8" />
-
-      {/* Gold rings */}
-      <circle cx="50" cy="50" r="33" fill="none" stroke="url(#gold)" strokeWidth="0.7" />
-      <circle cx="50" cy="50" r="31" fill="none" stroke="url(#gold)" strokeWidth="0.4" strokeDasharray="0.6 1.6" />
-
-      {/* Laurel wreath */}
-      {LAUREL.map((l) => (
-        <ellipse
-          key={l.key}
-          cx={l.x}
-          cy={l.y}
-          rx="3.4"
-          ry="1.3"
-          fill="url(#gold)"
-          transform={`rotate(${l.tilt} ${l.x} ${l.y})`}
-        />
-      ))}
-      <circle cx="50" cy="20" r="1.1" fill="url(#gold)" />
-
-      {/* Monogram */}
-      <text
-        x="50"
-        y="56"
-        textAnchor="middle"
-        fill="url(#gold)"
-        style={{ fontFamily: "'Great Vibes', cursive", fontSize: 21 }}
-      >
-        S<tspan fontSize="12" dy="-2"> &amp; </tspan><tspan dy="2">B</tspan>
-      </text>
-      <text
-        x="50"
-        y="67.5"
-        textAnchor="middle"
-        fill="url(#gold)"
-        style={{ fontFamily: "'Cinzel', serif", fontSize: 3.6, letterSpacing: 1.2 }}
-      >
-        MMXXVII
-      </text>
-    </svg>
-  );
-}
-
 function Corner({ className }: { className: string }) {
   return (
     <svg viewBox="0 0 60 60" className={`absolute w-10 h-10 sm:w-14 sm:h-14 text-[#d4af37] ${className}`} fill="none" stroke="currentColor" strokeWidth="1">
@@ -281,7 +177,7 @@ export function IntroVideo({ onComplete, onMusicStart, readyToTransition }: Intr
                   onClick={handlePlay}
                   disabled={!readyToTransition}
                   aria-label="Open invitation"
-                  className={`group relative w-28 h-28 sm:w-36 sm:h-36 transition-transform duration-700 ease-out ${
+                  className={`group relative w-36 h-36 sm:w-44 sm:h-44 transition-transform duration-700 ease-out ${
                     readyToTransition ? 'cursor-pointer hover:scale-105 hover:-rotate-3 active:scale-95' : 'cursor-wait'
                   }`}
                 >
@@ -302,10 +198,17 @@ export function IntroVideo({ onComplete, onMusicStart, readyToTransition }: Intr
                     <circle cx="50" cy="2" r="1.2" fill="currentColor" />
                   </motion.svg>
 
-                  <WaxSeal />
+                  <img
+                    src="/Luxurious_Black_and_Gold_S___B_Seal-removebg-preview.png"
+                    alt="S & B seal"
+                    decoding="async"
+                    fetchPriority="high"
+                    draggable={false}
+                    className="absolute inset-0 w-full h-full object-contain select-none drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]"
+                  />
 
                   {/* Light gleam sweeping across the stamp */}
-                  <span className="absolute inset-[14%] rounded-full overflow-hidden pointer-events-none">
+                  <span className="absolute inset-[22%] rounded-full overflow-hidden pointer-events-none">
                     <motion.span
                       className="absolute inset-y-0 -left-full w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg]"
                       animate={{ left: ['-60%', '160%'] }}
